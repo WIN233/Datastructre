@@ -96,6 +96,7 @@ public class LinkedList<E> {
         cur.e = e;
     }
 
+    // 查找链表中是否存在元素e
     public boolean contains(E e) {
         Node cur = dummyHead.next;
         while (cur.next != null) {
@@ -106,8 +107,40 @@ public class LinkedList<E> {
         return false;
     }
 
+    // 从链表中删除元素
+    public E remove(int index) {
+        if(index < 0 || index > size)
+            throw new IllegalArgumentException("Remove failed. Illegal index.");
+        Node prev = dummyHead;
+        for (int i = 0;i < index;i ++)
+            prev = prev.next;
+        Node delNode = prev.next;
+        prev.next = delNode.next;
+        delNode.next = null;
+        size--;
+        return delNode.e;
+    }
+
+    // 从链表中删除第一个元素，返回删除元素
+    public E removeFirst() {
+        return remove(0);
+    }
+
+    // 从链表中删除最后元素，返回删除元素
+    public E removeLast() {
+        return remove(size - 1);
+    }
 
 
-
-
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        Node cur = dummyHead.next;
+        while (cur != null) {
+            sb.append(cur+"->");
+            cur = cur.next;
+        }
+        sb.append("NULL");
+        return sb.toString();
+    }
 }
